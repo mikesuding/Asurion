@@ -1,0 +1,30 @@
+- defaultTab: output
+  description: ''
+  executionEnabled: true
+  id: 04059735-23e1-4b53-b392-5ff22f521283
+  loglevel: INFO
+  name: SFTP download from cloud to local
+  nodeFilterEditable: false
+  plugins:
+    ExecutionLifecycle: {}
+  scheduleEnabled: true
+  schedules: []
+  sequence:
+    commands:
+    - description: whoami
+      exec: whoami
+    - configuration:
+        backupDestinationFile: 'false'
+        backupSourceFile: 'false'
+        deleteFile: 'false'
+        destURLString: file:///mike/1mb.zip
+        sourceAuthentication: password
+        sourcePassword: keys/RtsomethingPass
+        sourceURLString: sftp://test.votopia.com/root/1mb.zip
+        sourceUsername: root
+      description: download file
+      nodeStep: true
+      type: filetransfer
+    keepgoing: false
+    strategy: node-first
+  uuid: 04059735-23e1-4b53-b392-5ff22f521283

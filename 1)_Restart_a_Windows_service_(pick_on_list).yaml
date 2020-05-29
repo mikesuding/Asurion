@@ -1,0 +1,46 @@
+- defaultTab: output
+  description: ''
+  executionEnabled: true
+  id: 8eb858c5-366f-4f0a-ac6c-356169524b64
+  loglevel: INFO
+  name: 1) Restart a Windows service (pick on list)
+  nodeFilterEditable: false
+  nodefilters:
+    dispatch:
+      excludePrecedence: true
+      keepgoing: true
+      rankOrder: ascending
+      successOnEmptyNodeFilter: false
+      threadcount: '4'
+    filter: 'tags: windows'
+    filterExclude: RundeckWinSer1 win12
+  nodesSelectedByDefault: true
+  options:
+  - enforced: true
+    label: Service name
+    name: servicename
+    required: true
+    value: spooler
+    values:
+    - power
+    - spooler
+    - themes
+    valuesListDelimiter: ','
+  plugins:
+    ExecutionLifecycle: {}
+  scheduleEnabled: true
+  schedules: []
+  sequence:
+    commands:
+    - description: restart service
+      fileExtension: ps1
+      interpreterArgsQuoted: false
+      script: "$service=\"@option.servicename@\"\n\ntry\n{\n    Restart-Service $service\
+        \ -ErrorAction Stop\n    start-sleep 1.9 # wait 2 seconds for service to restart\n\
+        \    get-service $service\n}\ncatch\n{\n    Write-Host \"Error!:\" \n    Write-Host\
+        \ $_  # shows PowerShell error wording\n    exit 1 # make sure Rundeck considers\
+        \ this a FAIL\n}\nexit 0 # normal success"
+      scriptInterpreter: powershell
+    keepgoing: false
+    strategy: node-first
+  uuid: 8eb858c5-366f-4f0a-ac6c-356169524b64
