@@ -1,0 +1,35 @@
+- defaultTab: output
+  description: |+
+    curl -H "Accept:application/json" -H "Content-Type:application/json" -H "Authorization: Bearer ilIcASOFwX1HsHsDzDYM_THQsp2AMutFzk53" -XGET "https://gorest.co.in/public-api/users?first_name=Duncan
+
+  executionEnabled: true
+  id: 26562366-65cb-4d50-bd76-bba6e9fccb29
+  loglevel: INFO
+  name: API example free public BASIC auth
+  nodeFilterEditable: false
+  plugins:
+    ExecutionLifecycle: {}
+  scheduleEnabled: true
+  schedules: []
+  sequence:
+    commands:
+    - configuration:
+        authentication: Basic
+        checkResponseCode: 'false'
+        headers: '{ "Accept" : "application/json" , "Content-Type":"application/json"
+          }'
+        method: GET
+        password: keys/bogus-test
+        printResponse: 'true'
+        printResponseToFile: 'false'
+        proxySettings: 'false'
+        remoteUrl: https://gorest.co.in/public-api/users?first_name=Nova&last_name=Koch
+        responseCode: '200'
+        sslVerify: 'true'
+        timeout: '8899'
+        username: ilIcASOFwX1HsHsDzDYM_THQsp2AMutFzk53
+      nodeStep: true
+      type: edu.ohio.ais.rundeck.HttpWorkflowNodeStepPlugin
+    keepgoing: false
+    strategy: node-first
+  uuid: 26562366-65cb-4d50-bd76-bba6e9fccb29
