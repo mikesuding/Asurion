@@ -1,0 +1,56 @@
+- defaultTab: output
+  description: ' using Jira '
+  executionEnabled: true
+  id: 9f22858a-e382-41c9-86c6-29d17121bcbc
+  loglevel: INFO
+  name: 2)  API example
+  nodeFilterEditable: false
+  notification:
+    onsuccess:
+      plugin:
+        configuration:
+          body: |-
+            user: ${job.username}, execution id: ${job.execid}
+            started: ${execution.dateStarted} ended: ${execution.dateEnded}
+          title: '[${execution.status}] Rundeck Job Notification - ${job.project}:${job.group}:${job.name}'
+          webhookUrl: https://outlook.office.com/webhook/93a5dec7-e94d-480b-8e2d-e66fc54ae79a@61bf3d17-bf1c-4605-93ba-5f541153b6f1/IncomingWebhook/605293d4700d4cd3b1e972501b592a26/5ff24925-738e-454b-97b4-016b246af9bf
+        type: microsoftteamsnotification
+  notifyAvgDurationThreshold: null
+  plugins:
+    ExecutionLifecycle: {}
+  scheduleEnabled: true
+  schedules: []
+  sequence:
+    commands:
+    - configuration:
+        authentication: Basic
+        checkResponseCode: 'true'
+        method: GET
+        password: keys/jira-msuding-rundeck
+        printResponse: 'true'
+        printResponseToFile: 'false'
+        proxySettings: 'false'
+        remoteUrl: https://rundeck.atlassian.net/rest/api/2/issue/it-3
+        responseCode: '200'
+        sslVerify: 'true'
+        timeout: '8899'
+        username: msuding@rundeck.com
+      nodeStep: true
+      plugins:
+        LogFilter:
+        - config:
+            filter: .
+            logData: 'false'
+            prefix: result
+          type: json-mapper
+        - config:
+            doNothing: 'false'
+            mute: 'true'
+            text: Retrieving filename via API (hiding long output)
+          type: progress-badges
+      type: edu.ohio.ais.rundeck.HttpWorkflowNodeStepPlugin
+    - description: show the value retrieved
+      exec: echo filename retrieved from data.fields.summary is... ${data.fields.summary}
+    keepgoing: false
+    strategy: node-first
+  uuid: 9f22858a-e382-41c9-86c6-29d17121bcbc
