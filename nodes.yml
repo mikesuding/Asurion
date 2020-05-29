@@ -1,0 +1,22 @@
+server2:
+  nodename: server2
+  hostname: server2
+  osFamily: windows
+  username: rundeck_svc
+  tags: 'prod'
+server13:
+  nodename: server13
+  hostname: server13
+  osFamily: windows
+  username: rundeck_svc
+  tags: 'something'
+centos9:
+  nodename: centos9
+  hostname: 10.0.1.9
+  osFamily: linux
+  username: adminmike
+  ssh-authentication: password
+  ssh-password-storage-path: keys/pass4adminMike
+  file-copier: jsch-scp
+  node-executor: jsch-ssh
+  tags: 'azure,prod'
